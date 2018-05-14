@@ -8,43 +8,67 @@
 <head>
 	<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
 	<script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
-	<script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script>
-	<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+	<script src="https://unpkg.com/aframe-layout-component@4.2/dist/aframe-layout-component.min.js"></script>
+	<script src="https://unpkg.com/aframe-text-geometry-component@0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+	<script src="https://rawgit.com/gasolin/aframe-href-component/master/dist/aframe-href-component.min.js"></script>
 
+
+	<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
 </head>
 
 <body>
 	<h2>Index</h2>
-
 	<p>
 		<a asp-action="Create">Create New</a>
 	</p>
 	<div id="three">
 		<a-scene embedded>
+			<a-asset>
+				<script id="link" type="text/html">
+					<a-entity class="link"
+							  event-set__1="_event: mousedown; scale: 1 1 1"
+							  event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+							  event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+							  event-set__4="_event: mouseleave; scale: 1 1 1"></a-entity>
+				</script>
+			</a-asset>
+
+			<!--SKY-->
 			<a-sky color="#7ec0ee"></a-sky>
 
-			<!-- Row of Data Cubes -->
-			<a-entity id="datas" layout="layout: line; margin: 1.5" position="-3 5 -4">
-				@foreach (var item in Model)
-		{
-			<a-box color="#ffffff"></a-box>
-}
+			<!--Create New Link-->
+			<a-entity id="create-button" position="-3 2 -4">
+				<a-box
+					   onclick="location.href='Datas/Create'"
+					   material="color: skyblue;">
+					<a-text value="Create" position="-.35 0 .5"></a-text>
+				</a-box>
 			</a-entity>
+
+
+			<!-- Row of Data Cubes -->
+			<a-entity id="datas" layout="type: box; columns: 2; margin: -1.5; plane: yz" position="-3 5 -4">
+				@foreach (var item in Model)
+				{
+					<a-box id="link" color="#000000"></a-box>
+				}
+			</a-entity>
+
 			<!-- Camera + Cursor. -->
-			<a-entity id="camera" position="0 20 3">
-				<a-box dynamic-body>
+			<a-entity id="camera" position="0 2 3">
+				<a-sphere>
 					<a-camera>
-						<a-cursor id="cursor">
+						<a-cursor id="cursor" objects: .clickable">
 							<a-animation begin="click" easing="ease-in" attribute="scale"
 										 fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
 							<a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
 										 from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
 						</a-cursor>
 					</a-camera>
-				</a-box>
+				</a-sphere>
 			</a-entity>
 			<!--Floor-->
-			<a-plane  height="100" width="100" rotation="-90 0 0" static-body></a-plane>
+			<a-plane height="100" width="100" rotation="-90 0 0"></a-plane>
 		</a-scene>
 	</div>
 </body>
