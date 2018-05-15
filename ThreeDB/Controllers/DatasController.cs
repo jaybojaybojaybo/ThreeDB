@@ -25,6 +25,7 @@ namespace ThreeDB.Controllers
         }
 
         // GET: Datas/Details/5
+        [HttpGet("/Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
