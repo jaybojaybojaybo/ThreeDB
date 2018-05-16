@@ -13,6 +13,7 @@
 	<script src="https://rawgit.com/gasolin/aframe-href-component/master/dist/aframe-href-component.min.js"></script>
 	<script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
 	<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+	<script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
 </head>
 
 <body>
@@ -31,20 +32,22 @@
 				<img src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" id="grid" crossorigin="anonymous">
 				<img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
 				<a-asset-item id="exoFont" src="https://cdn.glitch.com/c719c986-c0c5-48b8-967c-3cd8b8aa17f3%2Fexo2Black.typeface.json?1490305922150"></a-asset-item>
-				<img src="https://img.gs/bbdkhfbzkk/2048x1024,stretch/http://i.imgur.com/WMNH2OF.jpg" id="chrome" crossorigin="anonymous">
+				<img src="https://img.gs/bbdkhfbzkk/2048x1024,stretch/http://i.imgur.com/WMNH2OF.jpg" id="chrome" crossorigin="anonymous" />
+				<img src="https://thumbs.gfycat.com/CorruptVioletGermanshorthairedpointer-max-1mb.gif" id="lightning" crossorigin="anonymous" />
 			</a-asset>
 
 			<!--SKY-->
-			<a-sky src="#sky" rotation="0 -90 0"></a-sky>
-			<a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
-			<a-entity light="color: ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
-			<a-entity light="color: white; intensity: 0.5" position="-5 5 15"></a-entity>
-			<a-entity light="color: white; type: ambient;"></a-entity>
-			<a-entity position="0 5 -10" scale="0.6 1.2 1" text-geometry="value: 3DB; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1.5; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity>
-
+			<a-entity>
+				<a-sky src="#sky" rotation="0 -90 0"></a-sky>
+				<a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
+				<a-entity light="color: ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
+				<a-entity light="color: white; intensity: 0.5" position="-5 5 15"></a-entity>
+				<a-entity light="color: white; type: ambient;"></a-entity>
+				<a-entity position="0 5 -10" scale="0.6 1.2 1" text-geometry="value: 3DB; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1.5; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity>
+			</a-entity>
 
 			<!--Create New Link-->
-			<a-entity id="create-button" position="-3 7 -4">
+			<a-entity id="create-button" position="-3 4 -4">
 				<a-box onclick="location.href='Datas/Create'"
 					   material="color: skyblue;">
 					<a-text value="Create" position="-.35 0 .5" color="black"></a-text>
@@ -52,27 +55,32 @@
 			</a-entity>
 
 			<!-- Row of Data Cubes -->
-			<a-entity id="datas" layout="type: box; columns: 3; rows: 2; margin: -2; plane: yz" position="-3 5 -4">
+			<a-entity id="datas" layout="type: box; columns: 3; margin: -2; plane: xz" position="2 2 0">
 				@foreach (var item in Model)
-		{
-			<a-box material="color: #000000" onclick="location.href='Details/@item.Id'">
-				<a-text value="@item.Name" position="-.35 0 .5"></a-text>
-			</a-box>
-}
+				{
+				<a-box 
+					   material="color: #000000" 
+					   onclick="location.href='Details/@item.Id'" 
+					   width="1.5"
+					   event-set__enter="_event: mouseenter; color: #ffffff"
+					   event-set__leave="_event: mouseleave; color: #000000">
+					<a-text value="@item.Name" position="-.35 0 .5"></a-text>
+
+				</a-box>
+				}
 			</a-entity>
 
 			<!-- Camera + Cursor. -->
 			<a-entity id="camera" position="0 2 3">
-				<a-sphere>
-					<a-camera>
-						<a-cursor id="cursor" objects: .clickable">
+					<a-camera fly="true"
+							   universal-controls="fly: true; speed: 0.3">
+						<a-cursor id="cursor" objects: .clickable" color="purple">
 							<a-animation begin="click" easing="ease-in" attribute="scale"
 										 fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
 							<a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
 										 from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
 						</a-cursor>
 					</a-camera>
-				</a-sphere>
 			</a-entity>
 			<!--Floor-->
 			<a-entity geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
