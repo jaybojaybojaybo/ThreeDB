@@ -13,7 +13,8 @@
 	<script src="https://rawgit.com/gasolin/aframe-href-component/master/dist/aframe-href-component.min.js"></script>
 	<script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
 	<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
-	<script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+	<script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+
 </head>
 
 <body>
@@ -43,7 +44,13 @@
 				<a-entity light="color: ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
 				<a-entity light="color: white; intensity: 0.5" position="-5 5 15"></a-entity>
 				<a-entity light="color: white; type: ambient;"></a-entity>
-				<a-entity position="0 5 -10" scale="0.6 1.2 1" text-geometry="value: 3DB; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1.5; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity>
+				<a-entity position="-25 20 -80"
+						  scale="0.6 1.2 1"
+						  text-geometry="value: 3DB; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 35; height: 0.5;"
+						  material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;">
+						  event-set__enter="_event: mouseenter; color: #551a8b; metalness: 0.5"
+						  event-set__leave="_event: mouseleave; color: #000000"
+				</a-entity>
 			</a-entity>
 
 			<!--Create New Link-->
@@ -58,29 +65,29 @@
 			<a-entity id="datas" layout="type: box; columns: 3; margin: -2; plane: xz" position="2 2 0">
 				@foreach (var item in Model)
 				{
-				<a-box 
-					   material="color: #000000" 
-					   onclick="location.href='Details/@item.Id'" 
+				<a-box material="color: #000000"
+					   onclick="location.href='Details/@item.Id'"
 					   width="1.5"
-					   event-set__enter="_event: mouseenter; color: #ffffff"
+					   event-set__enter="_event: mouseenter; color: #551a8b; metalness: 0.5"
 					   event-set__leave="_event: mouseleave; color: #000000">
 					<a-text value="@item.Name" position="-.35 0 .5"></a-text>
-
+					<a-entity light="color: purple; intensity: 1.5" position="1 1 -2"></a-entity>
+					<a-entity light="color: purple; intensity: 1.5" position="-1 1 -2"></a-entity>
 				</a-box>
 				}
 			</a-entity>
 
 			<!-- Camera + Cursor. -->
 			<a-entity id="camera" position="0 2 3">
-					<a-camera fly="true"
-							   universal-controls="fly: true; speed: 0.3">
-						<a-cursor id="cursor" objects: .clickable" color="purple">
-							<a-animation begin="click" easing="ease-in" attribute="scale"
-										 fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-							<a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
-										 from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
-						</a-cursor>
-					</a-camera>
+				<a-camera fly="true"
+						  universal-controls="fly: true; speed: 0.3">
+					<a-cursor id="cursor" .clickable color="#E6E6FA">
+						<a-animation begin="click" easing="ease-in" attribute="scale"
+									 fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+						<a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+									 from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+					</a-cursor>
+				</a-camera>
 			</a-entity>
 			<!--Floor-->
 			<a-entity geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
