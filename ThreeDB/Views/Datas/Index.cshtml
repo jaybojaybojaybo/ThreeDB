@@ -16,11 +16,9 @@
 </head>
 
 <body>
-	<h2>Index</h2>
-	<p>
-		<a asp-action="Create">Create New</a>
-	</p>
 	<div id="three">
+		<br />
+		<br />
 		<a-scene embedded>
 			<a-asset>
 				<script id="link" type="text/html">
@@ -30,39 +28,37 @@
 							  event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
 							  event-set__4="_event: mouseleave; scale: 1 1 1"></a-entity>
 				</script>
+				<img src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" id="grid" crossorigin="anonymous">
+				<img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+				<a-asset-item id="exoFont" src="https://cdn.glitch.com/c719c986-c0c5-48b8-967c-3cd8b8aa17f3%2Fexo2Black.typeface.json?1490305922150"></a-asset-item>
+				<img src="https://img.gs/bbdkhfbzkk/2048x1024,stretch/http://i.imgur.com/WMNH2OF.jpg" id="chrome" crossorigin="anonymous">
 			</a-asset>
 
 			<!--SKY-->
-			<a-sky color="#7ec0ee"></a-sky>
+			<a-sky src="#sky" rotation="0 -90 0"></a-sky>
+			<a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
+			<a-entity light="color: ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
+			<a-entity light="color: white; intensity: 0.5" position="-5 5 15"></a-entity>
+			<a-entity light="color: white; type: ambient;"></a-entity>
+			<a-entity position="0 5 -10" scale="0.6 1.2 1" text-geometry="value: 3DB; font: #exoFont; bevelEnabled: true; bevelSize: 0.1; bevelThickness: 0.1; curveSegments: 1; size: 1.5; height: 0.5;" material="color:pink; metalness:0.9; roughness: 0.05; sphericalEnvMap: #chrome;"></a-entity>
+
 
 			<!--Create New Link-->
 			<a-entity id="create-button" position="-3 7 -4">
-				<a-box
-					   onclick="location.href='Datas/Create'"
+				<a-box onclick="location.href='Datas/Create'"
 					   material="color: skyblue;">
 					<a-text value="Create" position="-.35 0 .5" color="black"></a-text>
 				</a-box>
 			</a-entity>
 
-			<!--Search Box-->
-			<a-entity>
-				<a-entity geometry="primitive: plane" position="0 1 0" material="shader: html; target: #htmlElement"></a-entity>
-				<div style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden">
-					<div class="form-control" id="htmlElement" font-size: 48px">
-						Hello, HTML!
-					</div>
-				</div>
-			</a-entity>
-
-
 			<!-- Row of Data Cubes -->
-			<a-entity id="datas" layout="type: box; columns: 3; margin: -2; plane: yz" position="-3 5 -4">
+			<a-entity id="datas" layout="type: box; columns: 3; rows: 2; margin: -2; plane: yz" position="-3 5 -4">
 				@foreach (var item in Model)
-				{
-				<a-box material="color: #000000" onclick="location.href='Details/@item.Id'">
-					<a-text value="@item.Name" position="-.35 0 .5"></a-text>
-				</a-box>
-				}
+		{
+			<a-box material="color: #000000" onclick="location.href='Details/@item.Id'">
+				<a-text value="@item.Name" position="-.35 0 .5"></a-text>
+			</a-box>
+}
 			</a-entity>
 
 			<!-- Camera + Cursor. -->
@@ -79,7 +75,8 @@
 				</a-sphere>
 			</a-entity>
 			<!--Floor-->
-			<a-plane height="100" width="100" rotation="-90 0 0"></a-plane>
+			<a-entity geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+					  material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
 		</a-scene>
 	</div>
 </body>
