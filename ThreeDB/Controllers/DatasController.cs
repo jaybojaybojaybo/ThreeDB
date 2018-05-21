@@ -25,7 +25,6 @@ namespace ThreeDB.Controllers
         }
 
         // GET: Datas/Details/5
-        [HttpGet("/Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -54,7 +53,7 @@ namespace ThreeDB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Data data)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email")] Data data)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +85,7 @@ namespace ThreeDB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Data data)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email")] Data data)
         {
             if (id != data.Id)
             {
