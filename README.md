@@ -23,19 +23,19 @@ Soon to be hosted At [ThreeDB](https://threedb20180516082054.azurewebsites.net/)
 
 ## Run through   
 
-![front_page](wwwroot/images/ThreeDB_FrontPage.PNG)
+![front_page](ThreeDB/wwwroot/images/ThreeDB_FrontPage.PNG)
 
 After following link to ThreeDB, the user is met with the main view of the database.   
 
-![create_page](wwwroot/images/ThreeDB_CreatePage.PNG)
+![create_page](ThreeDB/wwwroot/images/ThreeDB_CreatePage.PNG)
 
 If the user aims the cursor at the Create cube and clicks, the user is brought to the Create page - to create a new data cube with simple user information.   
 
-![details_page](wwwroot/images/ThreeDB_DetailsPage.PNG)
+![details_page](ThreeDB/wwwroot/images/ThreeDB_DetailsPage.PNG)
 
 If the user aims the cursor at any data cube and clicks, the user is brought to that data cube's Details page and is presented with options to edit or delete that data cube. 
 
-![3db_environment](wwwroot/images/ThreeDB_Environment.gif)
+![3db_environment](ThreeDB/wwwroot/images/ThreeDB_Environment.gif)
 
 Check out the demo of a user navigating the 3D database.
 
