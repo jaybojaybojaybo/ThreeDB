@@ -50,7 +50,7 @@ Check out the demo of a user navigating the 3D database.
   * pwd: root
   * If you have a different local database server, you will need to change the connection string settings in appsettings.json and Models/ThreeDBContext.cs
 * Press the IIS Express play button. 
-* The app should automatically open your default browser.
+* The app should automatically open in your default browser.
 
 
 ## Support and contact details
