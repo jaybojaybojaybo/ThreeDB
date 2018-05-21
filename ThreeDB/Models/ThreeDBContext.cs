@@ -13,7 +13,7 @@ namespace ThreeDB.Models
         public DbSet<Data> Datas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder
-            .UseMySql(@"Server = tcp:threedbserver.database.windows.net, 1433; Initial Catalog = threedb; Persist Security Info=False;User ID = jasunadmin; Password= ThisPasswordIsFor3db; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;");
+            .UseMySql(@"Server=localhost;Port=8889;database=threedb;uid=root;pwd=root;");
 
         public ThreeDBContext(DbContextOptions options) : base(options)
         {
